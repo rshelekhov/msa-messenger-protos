@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package api.notification.v1;
+
+import "api/notification/v1/messages.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
+
+// NotificationService manages device registrations for push notifications
+service NotificationService {
+  // Private method for Auth service to register a new device
+  // for receiving notifications
+  rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse) {}
+
+  // Private method for Auth service to remove a device registration
+  rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse) {}
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package api.notification.v1;
+
+import "api/common/v1/types.proto";
+import "api/notification/v1/types.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
+
+// Register a new device for notifications
+message RegisterDeviceRequest {
+  // User ID to register device for
+  string user_id = 1;
+
+  // Device information
+  api.common.v1.UserDeviceData device_data = 2;
+}
+
+// Response for registering a new device
+message RegisterDeviceResponse {
+  // Registration details
+  DeviceRegistration registration = 1;
+}
+
+// Unregister a device from notifications
+message UnregisterDeviceRequest {
+  // Device registration ID to remove
+  string registration_id = 1;
+
+  // User ID for verification
+  string user_id = 2;
+}
+
+// Response for unregistering a device
+message UnregisterDeviceResponse {
+  // Whether unregistration was successful
+  bool success = 1;
+}
