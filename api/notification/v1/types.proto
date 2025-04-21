@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package api.notification.v1;
+
+import "api/common/v1/types.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
+
+// DeviceRegistration represents a registered device for notifications
+message DeviceRegistration {
+  // Unique identifier for the registration
+  string id = 1;
+
+  // User ID associated with this device
+  string user_id = 2;
+
+  // Device information
+  api.common.v1.UserDeviceData device_data = 3;
+
+  // When the device was registered
+  google.protobuf.Timestamp registered_at = 4;
+}
+
+// NotificationType represents different types of notifications
+enum NotificationType {
+  // Default unspecified value
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;
+
+  // New chat message received
+  NOTIFICATION_TYPE_NEW_MESSAGE = 1;
+
+  // New friend request received
+  NOTIFICATION_TYPE_FRIEND_REQUEST = 2;
+
+  // Friend request accepted
+  NOTIFICATION_TYPE_FRIEND_REQUEST_ACCEPTED = 3;
+}
+
+// Notification represents a notification to be sent to a user
+message Notification {
+  // Unique identifier for the notification
+  string id = 1;
+
+  // User ID to receive the notification
+  string user_id = 2;
+
+  // Type of notification
+  NotificationType type = 3;
+
+  // Title of the notification
+  string title = 4;
+
+  // Body text of the notification
+  string body = 5;
+
+  // Additional data as key-value pairs
+  map<string, string> metadata = 6;
+
+  // When the notification was created
+  google.protobuf.Timestamp created_at = 7;
+}

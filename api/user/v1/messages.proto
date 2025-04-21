@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+import "api/user/v1/types.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/user/v1;user";
+
+// CreateUserProfileRequest contains information for creating a new user profile
+message CreateUserProfileRequest {
+  // Unique identifier for the user
+  string user_id = 1;
+
+  // User's email address
+  string email = 2;
+
+  // User's display name
+  string name = 3;
+}
+
+// CreateUserProfileResponse indicates if the profile creation was successful
+message CreateUserProfileResponse {
+  // Whether the creation succeeded
+  bool success = 1;
+}
+
+// GetUserProfileRequest specifies which user profile to retrieve
+message GetUserProfileRequest {
+  // ID of the user profile to fetch
+  string user_id = 1;
+}
+
+// GetUserProfileResponse contains the requested user profile data
+message GetUserProfileResponse {
+  // Unique identifier for the user
+  string user_id = 1;
+
+  // User's email address
+  string email = 2;
+
+  // User's display name
+  string name = 3;
+}
+
+// UpdateUserProfileRequest contains data for updating a user's profile
+message UpdateUserProfileRequest {
+  // ID of the user profile to update
+  string user_id = 1;
+
+  // New display name for the user
+  string name = 2;
+}
+
+// UpdateUserProfileResponse indicates if the profile update was successful
+message UpdateUserProfileResponse {
+  // Whether the update succeeded
+  bool success = 1;
+}
+
+// UpdateUserEmailRequest contains data for changing a user's email
+message UpdateUserEmailRequest {
+  // ID of the user to update
+  string user_id = 1;
+
+  // New email address for the user
+  string email = 2;
+}
+
+// UpdateUserEmailResponse indicates if the email update was successful
+message UpdateUserEmailResponse {
+  // Whether the update succeeded
+  bool success = 1;
+}
+
+// RemoveUserRequest specifies which user to remove
+message RemoveUserRequest {
+  // ID of the user to remove
+  string user_id = 1;
+}
+
+// RemoveUserResponse indicates if the user removal was successful
+message RemoveUserResponse {
+  // Whether the removal succeeded
+  bool success = 1;
+}
+
+// SearchUsersRequest contains criteria for searching users
+message SearchUsersRequest {
+  // Name pattern to search for
+  string name = 1;
+}
+
+// SearchUsersResponse contains users matching the search criteria
+message SearchUsersResponse {
+  // List of matching users
+  repeated User users = 1;
+}

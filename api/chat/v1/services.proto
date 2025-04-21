@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package api.chat.v1;
+
+import "api/chat/v1/messages.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/chat/v1;chat";
+
+// ChatService manages one-to-one chat conversations between users
+service ChatService {
+  // Public method for API gateway to create a new chat between two users
+  rpc CreateChat(CreateChatRequest) returns (CreateChatResponse) {}
+
+  // Public method for API gateway to get a chat and its messages
+  rpc GetChat(GetChatRequest) returns (GetChatResponse) {}
+
+  // Public method for API gateway to delete a chat and all its messages
+  rpc DeleteChat(DeleteChatRequest) returns (DeleteChatResponse) {}
+
+  // Public method for API gateway to list all chats for the requesting user
+  rpc ListChats(ListChatsRequest) returns (ListChatsResponse) {}
+
+  // Public method for API gateway to send a new message to an existing chat
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse) {}
+}
