@@ -8,26 +8,23 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/chat/v1;chat
 
 // Create a new chat between two users (typically after friend request acceptance)
 message CreateChatRequest {
-  // ID of the first user
-  string user_id_1 = 1;
+  // ID of the user
+  string user_id = 1;
 
-  // ID of the second user
-  string user_id_2 = 2;
+  // ID of the friend
+  string friend_id = 2;
 }
 
 // Response for creating a new chat
 message CreateChatResponse {
-  // ID of the newly created chat
-  string id = 1;
-
   // Details of the created chat
-  Chat chat = 2;
+  Chat chat = 1;
 }
 
 // Get details of a specific chat
 message GetChatRequest {
   // ID of the chat to retrieve
-  string id = 1;
+  string chat_id = 1;
 
   // ID of requesting user (must be a participant)
   string user_id = 2;
@@ -45,7 +42,7 @@ message GetChatResponse {
 // Delete an existing chat
 message DeleteChatRequest {
   // ID of the chat to delete
-  string id = 1;
+  string chat_id = 1;
 
   // ID of requesting user (must be a participant)
   string user_id = 2;
@@ -83,9 +80,6 @@ message SendMessageRequest {
 
 // Response for sending a new message
 message SendMessageResponse {
-  // ID of the created message
-  string id = 1;
-
   // Details of the created message
-  Message message = 2;
+  Message message = 1;
 }

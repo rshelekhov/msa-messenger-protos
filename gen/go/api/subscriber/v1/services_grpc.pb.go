@@ -24,6 +24,7 @@ const (
 	SubscriberService_DeclineFriendInvite_FullMethodName = "/api.subscriber.v1.SubscriberService/DeclineFriendInvite"
 	SubscriberService_GetFriendInvite_FullMethodName     = "/api.subscriber.v1.SubscriberService/GetFriendInvite"
 	SubscriberService_GetAllFriendInvites_FullMethodName = "/api.subscriber.v1.SubscriberService/GetAllFriendInvites"
+	SubscriberService_GetFriendProfile_FullMethodName    = "/api.subscriber.v1.SubscriberService/GetFriendProfile"
 	SubscriberService_GetFriends_FullMethodName          = "/api.subscriber.v1.SubscriberService/GetFriends"
 	SubscriberService_DeleteFriend_FullMethodName        = "/api.subscriber.v1.SubscriberService/DeleteFriend"
 )
@@ -44,6 +45,8 @@ type SubscriberServiceClient interface {
 	GetFriendInvite(ctx context.Context, in *GetFriendInviteRequest, opts ...grpc.CallOption) (*GetFriendInviteResponse, error)
 	// Public method for API gateway to list all friend requests for a user (sent or received)
 	GetAllFriendInvites(ctx context.Context, in *GetAllFriendInvitesRequest, opts ...grpc.CallOption) (*GetAllFriendInvitesResponse, error)
+	// Public method for API gateway to get a friend's profile
+	GetFriendProfile(ctx context.Context, in *GetFriendProfileRequest, opts ...grpc.CallOption) (*GetFriendProfileResponse, error)
 	// Public method for API gateway to list all friends for a user
 	GetFriends(ctx context.Context, in *GetFriendsRequest, opts ...grpc.CallOption) (*GetFriendsResponse, error)
 	// Public method for API gateway to delete a friendship connection between two users
@@ -108,6 +111,16 @@ func (c *subscriberServiceClient) GetAllFriendInvites(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *subscriberServiceClient) GetFriendProfile(ctx context.Context, in *GetFriendProfileRequest, opts ...grpc.CallOption) (*GetFriendProfileResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetFriendProfileResponse)
+	err := c.cc.Invoke(ctx, SubscriberService_GetFriendProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *subscriberServiceClient) GetFriends(ctx context.Context, in *GetFriendsRequest, opts ...grpc.CallOption) (*GetFriendsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetFriendsResponse)
@@ -144,6 +157,8 @@ type SubscriberServiceServer interface {
 	GetFriendInvite(context.Context, *GetFriendInviteRequest) (*GetFriendInviteResponse, error)
 	// Public method for API gateway to list all friend requests for a user (sent or received)
 	GetAllFriendInvites(context.Context, *GetAllFriendInvitesRequest) (*GetAllFriendInvitesResponse, error)
+	// Public method for API gateway to get a friend's profile
+	GetFriendProfile(context.Context, *GetFriendProfileRequest) (*GetFriendProfileResponse, error)
 	// Public method for API gateway to list all friends for a user
 	GetFriends(context.Context, *GetFriendsRequest) (*GetFriendsResponse, error)
 	// Public method for API gateway to delete a friendship connection between two users
@@ -172,6 +187,9 @@ func (UnimplementedSubscriberServiceServer) GetFriendInvite(context.Context, *Ge
 }
 func (UnimplementedSubscriberServiceServer) GetAllFriendInvites(context.Context, *GetAllFriendInvitesRequest) (*GetAllFriendInvitesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllFriendInvites not implemented")
+}
+func (UnimplementedSubscriberServiceServer) GetFriendProfile(context.Context, *GetFriendProfileRequest) (*GetFriendProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFriendProfile not implemented")
 }
 func (UnimplementedSubscriberServiceServer) GetFriends(context.Context, *GetFriendsRequest) (*GetFriendsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFriends not implemented")
@@ -290,6 +308,24 @@ func _SubscriberService_GetAllFriendInvites_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SubscriberService_GetFriendProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFriendProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SubscriberServiceServer).GetFriendProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SubscriberService_GetFriendProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SubscriberServiceServer).GetFriendProfile(ctx, req.(*GetFriendProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SubscriberService_GetFriends_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetFriendsRequest)
 	if err := dec(in); err != nil {
@@ -352,6 +388,10 @@ var SubscriberService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllFriendInvites",
 			Handler:    _SubscriberService_GetAllFriendInvites_Handler,
+		},
+		{
+			MethodName: "GetFriendProfile",
+			Handler:    _SubscriberService_GetFriendProfile_Handler,
 		},
 		{
 			MethodName: "GetFriends",

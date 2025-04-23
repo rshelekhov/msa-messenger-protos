@@ -95,3 +95,18 @@ message LogoutResponse {
   // Whether the logout operation succeeded
   bool success = 1;
 }
+
+// RemoveUserRequest contains the device information for the session to terminate
+message RemoveUserRequest {
+  // User's ID
+  string user_id = 1;
+
+  // Information about the user's device
+  api.common.v1.UserDeviceData device_data = 2;
+}
+
+// RemoveUserResponse indicates if the user removal operation was successful
+message RemoveUserResponse {
+  // Whether the user removal operation succeeded
+  bool success = 1;
+}

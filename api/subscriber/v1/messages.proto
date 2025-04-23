@@ -83,10 +83,6 @@ message GetAllFriendInvitesRequest {
   // Filter by invite status (optional)
   optional RequestStatus status = 3;
 
-  // Pagination
-  // Page number for pagination
-  int32 page = 4;
-
   // Token for pagination continuation
   string page_token = 5;
 }
@@ -100,17 +96,28 @@ message GetAllFriendInvitesResponse {
   string next_page_token = 2;
 }
 
+// GetFriendProfileRequest is used to retrieve a friend's profile
+message GetFriendProfileRequest {
+  // ID of the user whose friend's profile to retrieve
+  string user_id = 1;
+
+  // ID of the friend whose profile to retrieve
+  string friend_id = 2;
+}
+
+// GetFriendProfileResponse contains the requested friend's profile
+message GetFriendProfileResponse {
+  // Details of the requested friend
+  Friend friend = 1;
+}
+
 // GetFriendsRequest is used to retrieve a user's friends list
 message GetFriendsRequest {
   // ID of the user whose friends to retrieve
   string user_id = 1;
 
-  // Pagination
-  // Page number for pagination
-  int32 page = 2;
-
   // Token for pagination continuation
-  string page_token = 3;
+  string page_token = 2;
 }
 
 // GetFriendsResponse contains a list of the user's friends

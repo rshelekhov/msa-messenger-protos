@@ -24,4 +24,7 @@ service AuthService {
   // Public method for API gateway to end the user session
   // and invalidate current tokens
   rpc Logout(LogoutRequest) returns (LogoutResponse) {}
+
+  // Public method for API gateway to remove the user account
+  rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {}
 }

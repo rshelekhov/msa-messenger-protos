@@ -32,7 +32,7 @@ const (
 //
 // ChatService manages one-to-one chat conversations between users
 type ChatServiceClient interface {
-	// Public method for API gateway to create a new chat between two users
+	// Private method to create a new chat between two users
 	CreateChat(ctx context.Context, in *CreateChatRequest, opts ...grpc.CallOption) (*CreateChatResponse, error)
 	// Public method for API gateway to get a chat and its messages
 	GetChat(ctx context.Context, in *GetChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error)
@@ -108,7 +108,7 @@ func (c *chatServiceClient) SendMessage(ctx context.Context, in *SendMessageRequ
 //
 // ChatService manages one-to-one chat conversations between users
 type ChatServiceServer interface {
-	// Public method for API gateway to create a new chat between two users
+	// Private method to create a new chat between two users
 	CreateChat(context.Context, *CreateChatRequest) (*CreateChatResponse, error)
 	// Public method for API gateway to get a chat and its messages
 	GetChat(context.Context, *GetChatRequest) (*GetChatResponse, error)

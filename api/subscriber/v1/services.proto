@@ -23,6 +23,9 @@ service SubscriberService {
   // Public method for API gateway to list all friend requests for a user (sent or received)
   rpc GetAllFriendInvites(GetAllFriendInvitesRequest) returns (GetAllFriendInvitesResponse) {}
 
+  // Public method for API gateway to get a friend's profile
+  rpc GetFriendProfile(GetFriendProfileRequest) returns (GetFriendProfileResponse) {}
+
   // Public method for API gateway to list all friends for a user
   rpc GetFriends(GetFriendsRequest) returns (GetFriendsResponse) {}
 

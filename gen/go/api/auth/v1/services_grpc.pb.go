@@ -24,6 +24,7 @@ const (
 	AuthService_RefreshToken_FullMethodName = "/api.auth.v1.AuthService/RefreshToken"
 	AuthService_UpdateEmail_FullMethodName  = "/api.auth.v1.AuthService/UpdateEmail"
 	AuthService_Logout_FullMethodName       = "/api.auth.v1.AuthService/Logout"
+	AuthService_RemoveUser_FullMethodName   = "/api.auth.v1.AuthService/RemoveUser"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -44,6 +45,8 @@ type AuthServiceClient interface {
 	// Public method for API gateway to end the user session
 	// and invalidate current tokens
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
+	// Public method for API gateway to remove the user account
+	RemoveUser(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error)
 }
 
 type authServiceClient struct {
@@ -104,6 +107,16 @@ func (c *authServiceClient) Logout(ctx context.Context, in *LogoutRequest, opts 
 	return out, nil
 }
 
+func (c *authServiceClient) RemoveUser(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveUserResponse)
+	err := c.cc.Invoke(ctx, AuthService_RemoveUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -122,6 +135,8 @@ type AuthServiceServer interface {
 	// Public method for API gateway to end the user session
 	// and invalidate current tokens
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
+	// Public method for API gateway to remove the user account
+	RemoveUser(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -146,6 +161,9 @@ func (UnimplementedAuthServiceServer) UpdateEmail(context.Context, *UpdateEmailR
 }
 func (UnimplementedAuthServiceServer) Logout(context.Context, *LogoutRequest) (*LogoutResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
+}
+func (UnimplementedAuthServiceServer) RemoveUser(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -258,6 +276,24 @@ func _AuthService_Logout_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_RemoveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).RemoveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_RemoveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).RemoveUser(ctx, req.(*RemoveUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -284,6 +320,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Logout",
 			Handler:    _AuthService_Logout_Handler,
+		},
+		{
+			MethodName: "RemoveUser",
+			Handler:    _AuthService_RemoveUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

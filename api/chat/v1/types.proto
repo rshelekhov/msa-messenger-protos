@@ -11,11 +11,11 @@ message Chat {
   // Unique identifier for the chat
   string id = 1;
 
-  // ID of the first user in the chat
-  string user_id_1 = 2;
+  // ID of the user in the chat
+  string user_id = 2;
 
-  // ID of the second user in the chat
-  string user_id_2 = 3;
+  // ID of the friend in the chat
+  string friend_id = 3;
 
   // When the chat was created
   google.protobuf.Timestamp created_at = 4;
@@ -26,11 +26,11 @@ message Message {
   // Unique identifier for the message
   string id = 1;
 
-  // Text content of the message
-  string content = 2;
-
   // ID of the user who sent the message
-  string user_id = 3;
+  string sender_id = 2;
+
+  // Text content of the message
+  string content = 3;
 
   // When the message was sent
   google.protobuf.Timestamp created_at = 4;

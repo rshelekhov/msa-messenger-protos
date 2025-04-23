@@ -86,8 +86,8 @@ message RemoveUserResponse {
 
 // SearchUsersRequest contains criteria for searching users
 message SearchUsersRequest {
-  // Name pattern to search for
-  string name = 1;
+  // Search query to match against user name or email
+  string search_query = 1;
 }
 
 // SearchUsersResponse contains users matching the search criteria
