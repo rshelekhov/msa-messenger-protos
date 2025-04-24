@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api.notification.v1;
+
+import "api/common/v1/common_types.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
+
+// DeviceRegistration represents a registered device for notifications
+message DeviceRegistration {
+  // Unique identifier for the registration
+  string id = 1;
+
+  // User ID associated with this device
+  string user_id = 2;
+
+  // Device information
+  api.common.v1.UserDeviceData device_data = 3;
+
+  // When the device was registered
+  google.protobuf.Timestamp registered_at = 4;
+}

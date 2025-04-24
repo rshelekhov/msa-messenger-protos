@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+import "api/user/v1/user_types.proto";
+import "buf/validate/validate.proto";
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/user/v1;user";
+
+// CreateUserProfileRequest contains information for creating a new user profile
+message CreateUserProfileRequest {
+  // Unique identifier for the user
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // User's email address
+  string email = 2 [
+   (buf.validate.field).required = true,
+    (buf.validate.field).string.email = true,
+    (buf.validate.field).string.min_len = 5,
+    (buf.validate.field).string.max_len = 255
+  ];
+
+  // User's display name
+  string name = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 255
+  ];
+}
+
+// CreateUserProfileResponse indicates if the profile creation was successful
+message CreateUserProfileResponse {
+  // Whether the creation succeeded
+  bool success = 1;
+}
+
+// GetUserProfileRequest specifies which user profile to retrieve
+message GetUserProfileRequest {
+  // ID of the user profile to fetch
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// GetUserProfileResponse contains the requested user profile data
+message GetUserProfileResponse {
+  // Unique identifier for the user
+  string user_id = 1;
+
+  // User's email address
+  string email = 2;
+
+  // User's display name
+  string name = 3;
+}
+
+// UpdateUserProfileRequest contains data for updating a user's profile
+message UpdateUserProfileRequest {
+  // ID of the user profile to update
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // New display name for the user
+  string name = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 255
+  ];
+}
+
+// UpdateUserProfileResponse indicates if the profile update was successful
+message UpdateUserProfileResponse {
+  // Whether the update succeeded
+  bool success = 1;
+}
+
+// UpdateUserEmailRequest contains data for changing a user's email
+message UpdateUserEmailRequest {
+  // ID of the user to update
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // New email address for the user
+  string email = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.email = true,
+    (buf.validate.field).string.min_len = 5,
+    (buf.validate.field).string.max_len = 255
+  ];
+}
+
+// UpdateUserEmailResponse indicates if the email update was successful
+message UpdateUserEmailResponse {
+  // Whether the update succeeded
+  bool success = 1;
+}
+
+// RemoveUserRequest specifies which user to remove
+message RemoveUserRequest {
+  // ID of the user to remove
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// RemoveUserResponse indicates if the user removal was successful
+message RemoveUserResponse {
+  // Whether the removal succeeded
+  bool success = 1;
+}
+
+// SearchUsersRequest contains criteria for searching users
+message SearchUsersRequest {
+  // Search query to match against user name or email
+  string search_query = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 255
+  ];
+}
+
+// SearchUsersResponse contains users matching the search criteria
+message SearchUsersResponse {
+  // List of matching users
+  repeated User users = 1;
+}

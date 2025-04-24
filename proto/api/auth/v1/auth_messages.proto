@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+package api.auth.v1;
+
+import "api/common/v1/common_types.proto";
+import "buf/validate/validate.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/auth/v1;auth";
+
+// LoginRequest contains credentials and device info for authentication
+message LoginRequest {
+  // User's email address
+  string email = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.email = true,
+    (buf.validate.field).string.min_len = 5,
+    (buf.validate.field).string.max_len = 255
+  ];
+
+  // User's password
+  string password = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 8,
+    (buf.validate.field).string.max_len = 255,
+    (buf.validate.field).string.pattern = "^[A-Za-z\\d@$!%*?&]{8,}$"
+  ];
+
+  // Device data for tracking user activity and sending notifications
+  api.common.v1.UserDeviceData device_data = 3 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// LoginResponse contains authentication tokens returned after successful login
+message LoginResponse {
+  // JWT for API access
+  string access_token = 1;
+
+  // Token used to obtain new access tokens
+  string refresh_token = 2;
+}
+
+// RegisterUserRequest contains data needed to register a new user
+message RegisterUserRequest {
+  // User's email address
+  string email = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.email = true,
+    (buf.validate.field).string.min_len = 5,
+    (buf.validate.field).string.max_len = 255
+  ];
+
+  // User's password
+  string password = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 8,
+    (buf.validate.field).string.max_len = 255,
+    (buf.validate.field).string.pattern = "^[A-Za-z\\d@$!%*?&]{8,}$"
+  ];
+
+  // User's display name
+  string name = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 255
+  ];
+
+  // Device data for tracking user activity and sending notifications
+  api.common.v1.UserDeviceData device_data = 4 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// RegisterUserResponse contains the newly registered user's ID
+message RegisterUserResponse {
+  // Newly registered user's ID
+  string user_id = 1;
+
+  // JWT for API access
+  string access_token = 2;
+
+  // Token used to obtain new access tokens
+  string refresh_token = 3;
+}
+
+// RefreshTokenRequest contains data needed to refresh expired tokens
+message RefreshTokenRequest {
+  // Valid refresh token
+  string refresh_token = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // Information about the user's device
+  api.common.v1.UserDeviceData device_data = 2 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// RefreshTokenResponse contains newly issued authentication tokens
+message RefreshTokenResponse {
+  // New JWT token for API access
+  string access_token = 1;
+
+  // New refresh token
+  string refresh_token = 2;
+}
+
+// UpdateEmailRequest contains data needed to update the user's email address
+message UpdateEmailRequest {
+  // User's ID
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // User's email address
+  string email = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.email = true,
+    (buf.validate.field).string.min_len = 5,
+    (buf.validate.field).string.max_len = 255
+  ];
+}
+
+// UpdateEmailResponse indicates if the email update operation was successful
+message UpdateEmailResponse {
+  // Whether the email update operation succeeded
+  bool success = 1;
+}
+
+// LogoutRequest contains the device information for the session to terminate
+message LogoutRequest {
+  // Information about the user's device
+  api.common.v1.UserDeviceData device_data = 1 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// LogoutResponse indicates if the logout operation was successful
+message LogoutResponse {
+  // Whether the logout operation succeeded
+  bool success = 1;
+}
+
+// RemoveUserRequest contains the device information for the session to terminate
+message RemoveUserRequest {
+  // User's ID
+  string user_id = 1 [
+    (buf.validate.field).required = true
+  ];
+
+  // Information about the user's device
+  api.common.v1.UserDeviceData device_data = 2 [
+    (buf.validate.field).required = true
+  ];
+}
+
+// RemoveUserResponse indicates if the user removal operation was successful
+message RemoveUserResponse {
+  // Whether the user removal operation succeeded
+  bool success = 1;
+}
