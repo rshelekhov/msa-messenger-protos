@@ -10,12 +10,14 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/chat/v1;chat
 message CreateChatRequest {
   // ID of the user
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the friend
   string friend_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -29,12 +31,14 @@ message CreateChatResponse {
 message GetChatRequest {
   // ID of the chat to retrieve
   string chat_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of requesting user (must be a participant)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -51,12 +55,14 @@ message GetChatResponse {
 message DeleteChatRequest {
   // ID of the chat to delete
   string chat_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of requesting user (must be a participant)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -70,7 +76,8 @@ message DeleteChatResponse {
 message ListChatsRequest {
   // ID of user whose chats to list
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -84,12 +91,14 @@ message ListChatsResponse {
 message SendMessageRequest {
   // ID of the chat to send message to
   string chat_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the sending user (must be a participant)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Content of the message

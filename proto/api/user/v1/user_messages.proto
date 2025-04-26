@@ -10,7 +10,8 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/user/v1;user
 message CreateUserProfileRequest {
   // Unique identifier for the user
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // User's email address
@@ -39,7 +40,8 @@ message CreateUserProfileResponse {
 message GetUserProfileRequest {
   // ID of the user profile to fetch
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -59,7 +61,8 @@ message GetUserProfileResponse {
 message UpdateUserProfileRequest {
   // ID of the user profile to update
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // New display name for the user
@@ -80,7 +83,8 @@ message UpdateUserProfileResponse {
 message UpdateUserEmailRequest {
   // ID of the user to update
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // New email address for the user
@@ -102,7 +106,8 @@ message UpdateUserEmailResponse {
 message RemoveUserRequest {
   // ID of the user to remove
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 

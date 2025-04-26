@@ -25,7 +25,8 @@ enum Platform {
 message UserDeviceData {
   // Unique identifier for the user's device
   string device_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Platform type (Web, iOS, Android)
@@ -47,7 +48,8 @@ message UserDeviceData {
 
   // User's IP address
   string ip_address = 5 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.ip = true
   ];
 
   // User agent string from the device
