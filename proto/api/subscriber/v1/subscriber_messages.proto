@@ -11,12 +11,14 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/subscriber/v
 message SendFriendInviteRequest {
   // ID of the user sending the invite
   string from_user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the user receiving the invite
   string to_user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Optional message to accompany the invite
@@ -36,12 +38,14 @@ message SendFriendInviteResponse {
 message AcceptFriendInviteRequest {
   // ID of the invite to accept
   string invite_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the user accepting the invite (must be the recipient)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -55,12 +59,14 @@ message AcceptFriendInviteResponse {
 message DeclineFriendInviteRequest {
   // ID of the invite to decline
   string invite_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the user declining the invite (must be the recipient)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Optional explanation for declining
@@ -80,12 +86,14 @@ message DeclineFriendInviteResponse {
 message GetFriendInviteRequest {
   // ID of the invite to retrieve
   string invite_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the requesting user (must be sender or recipient)
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -99,7 +107,8 @@ message GetFriendInviteResponse {
 message GetAllFriendInvitesRequest {
   // ID of the user whose invites to retrieve
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Whether to get incoming or outgoing invites
@@ -130,12 +139,14 @@ message GetAllFriendInvitesResponse {
 message GetFriendProfileRequest {
   // ID of the user whose friend's profile to retrieve
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the friend whose profile to retrieve
   string friend_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
@@ -149,7 +160,8 @@ message GetFriendProfileResponse {
 message GetFriendsRequest {
   // ID of the user whose friends to retrieve
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Token for pagination continuation
@@ -169,12 +181,14 @@ message GetFriendsResponse {
 message DeleteFriendRequest {
   // ID of the user making the request
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // ID of the friend to remove
   string friend_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 

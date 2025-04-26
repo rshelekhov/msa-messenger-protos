@@ -12,7 +12,8 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification
 message RegisterDeviceRequest {
   // User ID to register device for
   string user_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // Device information
@@ -31,12 +32,14 @@ message RegisterDeviceResponse {
 message UnregisterDeviceRequest {
   // Device registration ID to remove
   string registration_id = 1 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 
   // User ID for verification
   string user_id = 2 [
-    (buf.validate.field).required = true
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
   ];
 }
 
