@@ -25,6 +25,7 @@ const (
 	AuthService_UpdateEmail_FullMethodName  = "/api.auth.v1.AuthService/UpdateEmail"
 	AuthService_Logout_FullMethodName       = "/api.auth.v1.AuthService/Logout"
 	AuthService_RemoveUser_FullMethodName   = "/api.auth.v1.AuthService/RemoveUser"
+	AuthService_GetJWKS_FullMethodName      = "/api.auth.v1.AuthService/GetJWKS"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -47,6 +48,8 @@ type AuthServiceClient interface {
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	// Public method for API gateway to remove the user account
 	RemoveUser(ctx context.Context, in *RemoveUserRequest, opts ...grpc.CallOption) (*RemoveUserResponse, error)
+	// Public method for API gateway to get the JWKS for the auth service
+	GetJWKS(ctx context.Context, in *GetJWKSRequest, opts ...grpc.CallOption) (*GetJWKSResponse, error)
 }
 
 type authServiceClient struct {
@@ -117,6 +120,16 @@ func (c *authServiceClient) RemoveUser(ctx context.Context, in *RemoveUserReques
 	return out, nil
 }
 
+func (c *authServiceClient) GetJWKS(ctx context.Context, in *GetJWKSRequest, opts ...grpc.CallOption) (*GetJWKSResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetJWKSResponse)
+	err := c.cc.Invoke(ctx, AuthService_GetJWKS_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -137,6 +150,8 @@ type AuthServiceServer interface {
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	// Public method for API gateway to remove the user account
 	RemoveUser(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error)
+	// Public method for API gateway to get the JWKS for the auth service
+	GetJWKS(context.Context, *GetJWKSRequest) (*GetJWKSResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -164,6 +179,9 @@ func (UnimplementedAuthServiceServer) Logout(context.Context, *LogoutRequest) (*
 }
 func (UnimplementedAuthServiceServer) RemoveUser(context.Context, *RemoveUserRequest) (*RemoveUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
+}
+func (UnimplementedAuthServiceServer) GetJWKS(context.Context, *GetJWKSRequest) (*GetJWKSResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetJWKS not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -294,6 +312,24 @@ func _AuthService_RemoveUser_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_GetJWKS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetJWKSRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetJWKS(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GetJWKS_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetJWKS(ctx, req.(*GetJWKSRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -324,6 +360,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveUser",
 			Handler:    _AuthService_RemoveUser_Handler,
+		},
+		{
+			MethodName: "GetJWKS",
+			Handler:    _AuthService_GetJWKS_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

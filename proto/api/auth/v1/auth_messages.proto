@@ -161,3 +161,34 @@ message RemoveUserResponse {
   // Whether the user removal operation succeeded
   bool success = 1;
 }
+
+// GetJWKSRequest is used to get the JWKS for the auth service
+message GetJWKSRequest {}
+
+// GetJWKSResponse contains the JWKS for the auth service
+message GetJWKSResponse {
+  // The JWKS for the auth service
+  repeated JWK jwks = 1;
+}
+
+// JWK represents a JSON Web Key structure containing the necessary fields
+// for RSA public key construction
+message JWK {
+  // The specific cryptographic algorithm used with the key
+  string alg = 1;
+
+  // The family of cryptographic algorithms used with the key
+  string kty = 2;
+
+  // How the key was meant to be used; sig represents the signature
+  string use = 3;
+
+  // The unique identifier for the key
+  string kid = 4;
+
+  // The modulus for the RSA public key
+  string n = 5;
+
+  // The exponent for the RSA public key
+  string e = 6;
+}
