@@ -40,6 +40,9 @@ message GetChatRequest {
     (buf.validate.field).required = true,
     (buf.validate.field).string.uuid = true
   ];
+
+  // Token for pagination continuation
+  string page_token = 3;
 }
 
 // Response for getting details of a specific chat
@@ -49,6 +52,9 @@ message GetChatResponse {
 
   // Messages in the chat
   repeated Message messages = 2;
+
+  // Token for pagination continuation
+  string next_page_token = 3;
 }
 
 // Delete an existing chat
@@ -79,12 +85,18 @@ message ListChatsRequest {
     (buf.validate.field).required = true,
     (buf.validate.field).string.uuid = true
   ];
+
+  // Token for pagination continuation
+  string page_token = 2;  
 }
 
 // Response for listing all chats for a user
 message ListChatsResponse {
   // List of chats the user participates in
   repeated Chat chats = 1;
+
+  // Token for pagination continuation
+  string next_page_token = 2;
 }
 
 // Send a new message to a chat

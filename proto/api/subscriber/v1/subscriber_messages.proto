@@ -111,9 +111,8 @@ message GetAllFriendInvitesRequest {
     (buf.validate.field).string.uuid = true
   ];
 
-  // Whether to get incoming or outgoing invites
-  RequestDirection direction = 2 [
-    (buf.validate.field).required = true,
+  // Whether to get incoming or outgoing invites (optional)
+  optional RequestDirection direction = 2 [
     (buf.validate.field).enum.defined_only = true
   ];
 
