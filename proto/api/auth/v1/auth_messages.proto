@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.auth.v1;
 
 import "api/common/v1/common_types.proto";
+import "api/auth/v1/auth_types.proto";
 import "buf/validate/validate.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/auth/v1;auth";
@@ -33,11 +34,8 @@ message LoginRequest {
 
 // LoginResponse contains authentication tokens returned after successful login
 message LoginResponse {
-  // JWT for API access
-  string access_token = 1;
-
-  // Token used to obtain new access tokens
-  string refresh_token = 2;
+  // Authentication tokens
+  Token tokens = 1;
 }
 
 // RegisterUserRequest contains data needed to register a new user
@@ -75,12 +73,9 @@ message RegisterUserRequest {
 message RegisterUserResponse {
   // Newly registered user's ID
   string user_id = 1;
-
-  // JWT for API access
-  string access_token = 2;
-
-  // Token used to obtain new access tokens
-  string refresh_token = 3;
+  
+  // Authentication tokens
+  Token tokens = 2;
 }
 
 // RefreshTokenRequest contains data needed to refresh expired tokens

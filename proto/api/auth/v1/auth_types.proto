@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package api.auth.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/rshelekhov/msa-messenger-protos/api/auth/v1;auth";
+
+// Token represents authentication tokens used for user sessions
+message Token {
+    // JWT access token used for API authentication
+    string access_token = 1;
+
+    // JWT refresh token used to obtain new access tokens
+    string refresh_token = 2;
+
+    // Domain where the token is valid
+    string domain = 3;
+
+    // Path where the token is valid
+    string path = 4;
+
+    // When the token expires
+    google.protobuf.Timestamp expires_at = 5;
+
+    // Whether the token should be accessible only via HTTP
+    bool http_only = 6;
+}
