@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package api.notification.v1;
 
-import "api/common/v1/common_types.proto";
 import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
 
@@ -16,8 +16,60 @@ message DeviceRegistration {
   string user_id = 2;
 
   // Device information
-  api.common.v1.UserDeviceData device_data = 3;
+  UserDeviceData device_data = 3;
 
   // When the device was registered
   google.protobuf.Timestamp registered_at = 4;
+}
+
+// Platform options for user devices
+enum Platform {
+  // Default unspecified value
+  PLATFORM_UNSPECIFIED = 0;
+
+  // Web platform
+  PLATFORM_WEB = 1;
+
+  // iOS platform
+  PLATFORM_IOS = 2;
+
+  // Android platform
+  PLATFORM_ANDROID = 3;
+}
+
+// UserDeviceData contains information about the user's device for authentication and notifications
+message UserDeviceData {
+  // Unique identifier for the user's device
+  string device_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // Platform type (Web, iOS, Android)
+  Platform platform = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).enum.defined_only = true
+  ];
+
+  // Only one of app_version or browser_version should be set based on the platform
+  oneof version {
+    option (buf.validate.oneof).required = true;
+
+    // Mobile app version (for iOS/Android)
+    string app_version = 3;
+
+    // Browser version (for web platform)
+    string browser_version = 4;
+  }
+
+  // User's IP address
+  string ip_address = 5 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.ip = true
+  ];
+
+  // User agent string from the device
+  string user_agent = 6 [
+    (buf.validate.field).required = true
+  ];
 }

@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package api.notification.v1;
 
-import "api/common/v1/common_types.proto";
 import "api/notification/v1/notification_types.proto";
 import "buf/validate/validate.proto";
 
@@ -17,7 +16,7 @@ message RegisterDeviceRequest {
   ];
 
   // Device information
-  api.common.v1.UserDeviceData device_data = 2 [
+  UserDeviceData device_data = 2 [
     (buf.validate.field).required = true
   ];
 }
