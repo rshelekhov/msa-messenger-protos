@@ -4,23 +4,6 @@ This repository contains Protocol Buffers definitions for the Messenger microser
 
 ## Services Overview
 
-### Auth Service
-
-Handles user authentication and session management:
-
-- User registration and login
-- Token management (access/refresh)
-- Device registration for multi-device support
-- Email updates and session management
-
-### User Service
-
-Manages user profiles and personal information:
-
-- User profile storage and updates
-- Profile information synchronization with other services
-- User data management
-
 ### Chat Service
 
 Handles one-to-one chat functionality:
@@ -47,24 +30,13 @@ Handles push notifications and device management:
 - Multi-device notification support
 - Integration with external notification services
 
-## Common Types
-
-The `common` package contains shared data types used across multiple services:
-
-- Device information structures
-- Platform enums
-- Shared data types
-
 ## Directory Structure
 
 ```
 api/
-├── auth/v1/         # Authentication service protos
 ├── chat/v1/         # Chat service protos
-├── common/v1/       # Shared types and enums
 ├── notification/v1/ # Notification service protos
 ├── subscriber/v1/   # Friend management service protos
-└── user/v1/        # User profile service protos
 ```
 
 ## Code Generation
