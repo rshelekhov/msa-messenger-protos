@@ -3,7 +3,6 @@ syntax = "proto3";
 package api.notification.v1;
 
 import "google/protobuf/timestamp.proto";
-import "buf/validate/validate.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
 
@@ -40,21 +39,13 @@ enum Platform {
 // UserDeviceData contains information about the user's device for authentication and notifications
 message UserDeviceData {
   // Unique identifier for the user's device
-  string device_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string device_id = 1;
 
   // Platform type (Web, iOS, Android)
-  Platform platform = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).enum.defined_only = true
-  ];
+  Platform platform = 2;
 
   // Only one of app_version or browser_version should be set based on the platform
   oneof version {
-    option (buf.validate.oneof).required = true;
-
     // Mobile app version (for iOS/Android)
     string app_version = 3;
 
@@ -63,13 +54,8 @@ message UserDeviceData {
   }
 
   // User's IP address
-  string ip_address = 5 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.ip = true
-  ];
+  string ip_address = 5;
 
   // User agent string from the device
-  string user_agent = 6 [
-    (buf.validate.field).required = true
-  ];
+  string user_agent = 6;
 }

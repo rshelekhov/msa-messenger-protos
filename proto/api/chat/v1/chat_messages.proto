@@ -3,22 +3,16 @@ syntax = "proto3";
 package api.chat.v1;
 
 import "api/chat/v1/chat_types.proto";
-import "buf/validate/validate.proto";
+
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/chat/v1;chat";
 
 // Create a new chat between two users (typically after friend request acceptance)
 message CreateChatRequest {
   // ID of the user
-  string user_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 1;
 
   // ID of the friend
-  string friend_id = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string friend_id = 2;
 }
 
 // Response for creating a new chat
@@ -30,16 +24,10 @@ message CreateChatResponse {
 // Get details of a specific chat
 message GetChatRequest {
   // ID of the chat to retrieve
-  string chat_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string chat_id = 1;
 
   // ID of requesting user (must be a participant)
-  string user_id = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 2;
 
   // Token for pagination continuation
   string page_token = 3;
@@ -60,16 +48,10 @@ message GetChatResponse {
 // Delete an existing chat
 message DeleteChatRequest {
   // ID of the chat to delete
-  string chat_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string chat_id = 1;
 
   // ID of requesting user (must be a participant)
-  string user_id = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 2;
 }
 
 // Response for deleting a chat
@@ -81,10 +63,7 @@ message DeleteChatResponse {
 // List all chats for a user
 message ListChatsRequest {
   // ID of user whose chats to list
-  string user_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 1;
 
   // Token for pagination continuation
   string page_token = 2;  
@@ -102,23 +81,13 @@ message ListChatsResponse {
 // Send a new message to a chat
 message SendMessageRequest {
   // ID of the chat to send message to
-  string chat_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string chat_id = 1;
 
   // ID of the sending user (must be a participant)
-  string user_id = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 2;
 
   // Content of the message
-  string content = 3 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.min_len = 1,
-    (buf.validate.field).string.max_len = 1000
-  ];
+  string content = 3;
 }
 
 // Response for sending a new message

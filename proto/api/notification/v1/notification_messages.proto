@@ -3,22 +3,16 @@ syntax = "proto3";
 package api.notification.v1;
 
 import "api/notification/v1/notification_types.proto";
-import "buf/validate/validate.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
 
 // Register a new device for notifications
 message RegisterDeviceRequest {
   // User ID to register device for
-  string user_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 1;
 
   // Device information
-  UserDeviceData device_data = 2 [
-    (buf.validate.field).required = true
-  ];
+  UserDeviceData device_data = 2;
 }
 
 // Response for registering a new device
@@ -30,16 +24,10 @@ message RegisterDeviceResponse {
 // Unregister a device from notifications
 message UnregisterDeviceRequest {
   // Device registration ID to remove
-  string registration_id = 1 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string registration_id = 1;
 
   // User ID for verification
-  string user_id = 2 [
-    (buf.validate.field).required = true,
-    (buf.validate.field).string.uuid = true
-  ];
+  string user_id = 2;
 }
 
 // Response for unregistering a device
