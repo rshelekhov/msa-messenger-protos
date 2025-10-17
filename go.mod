@@ -3,7 +3,7 @@ module github.com/rshelekhov/msa-messenger-protos
 go 1.24.2
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250423154025-ec0af4932e5e.1
+	github.com/envoyproxy/protoc-gen-validate v1.2.1
 	google.golang.org/grpc v1.72.0
 	google.golang.org/protobuf v1.36.6
 )
