@@ -1,4 +1,4 @@
 vendor.protobuf
+vendor/
 bin
 .DS_Store
-.vscode

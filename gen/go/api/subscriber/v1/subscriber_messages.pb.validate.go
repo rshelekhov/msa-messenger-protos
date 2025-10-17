@@ -57,28 +57,6 @@ func (m *SendFriendInviteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetFromUserId()) < 1 {
-		err := SendFriendInviteRequestValidationError{
-			field:  "FromUserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_SendFriendInviteRequest_FromUserId_Pattern.MatchString(m.GetFromUserId()) {
-		err := SendFriendInviteRequestValidationError{
-			field:  "FromUserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if utf8.RuneCountInString(m.GetToUserId()) < 1 {
 		err := SendFriendInviteRequestValidationError{
 			field:  "ToUserId",
@@ -195,8 +173,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SendFriendInviteRequestValidationError{}
-
-var _SendFriendInviteRequest_FromUserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 var _SendFriendInviteRequest_ToUserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
@@ -326,28 +302,6 @@ func (m *AcceptFriendInviteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetInviteId()) < 1 {
-		err := AcceptFriendInviteRequestValidationError{
-			field:  "InviteId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_AcceptFriendInviteRequest_InviteId_Pattern.MatchString(m.GetInviteId()) {
-		err := AcceptFriendInviteRequestValidationError{
-			field:  "InviteId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if utf8.RuneCountInString(m.GetUserId()) < 1 {
 		err := AcceptFriendInviteRequestValidationError{
 			field:  "UserId",
@@ -449,8 +403,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AcceptFriendInviteRequestValidationError{}
-
-var _AcceptFriendInviteRequest_InviteId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 var _AcceptFriendInviteRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
@@ -602,28 +554,6 @@ func (m *DeclineFriendInviteRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := DeclineFriendInviteRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_DeclineFriendInviteRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := DeclineFriendInviteRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if m.Message != nil {
 
 		if l := utf8.RuneCountInString(m.GetMessage()); l < 1 || l > 300 {
@@ -720,8 +650,6 @@ var _ interface {
 } = DeclineFriendInviteRequestValidationError{}
 
 var _DeclineFriendInviteRequest_InviteId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-
-var _DeclineFriendInviteRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on DeclineFriendInviteResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -872,28 +800,6 @@ func (m *GetFriendInviteRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := GetFriendInviteRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_GetFriendInviteRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := GetFriendInviteRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return GetFriendInviteRequestMultiError(errors)
 	}
@@ -975,8 +881,6 @@ var _ interface {
 } = GetFriendInviteRequestValidationError{}
 
 var _GetFriendInviteRequest_InviteId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-
-var _GetFriendInviteRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on GetFriendInviteResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1131,28 +1035,6 @@ func (m *GetAllFriendInvitesRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := GetAllFriendInvitesRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_GetAllFriendInvitesRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := GetAllFriendInvitesRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for PageToken
 
 	if m.Direction != nil {
@@ -1264,8 +1146,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAllFriendInvitesRequestValidationError{}
-
-var _GetAllFriendInvitesRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on GetAllFriendInvitesResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -1428,28 +1308,6 @@ func (m *GetFriendProfileRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := GetFriendProfileRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_GetFriendProfileRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := GetFriendProfileRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if utf8.RuneCountInString(m.GetFriendId()) < 1 {
 		err := GetFriendProfileRequestValidationError{
 			field:  "FriendId",
@@ -1551,8 +1409,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetFriendProfileRequestValidationError{}
-
-var _GetFriendProfileRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 var _GetFriendProfileRequest_FriendId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
@@ -1709,28 +1565,6 @@ func (m *GetFriendsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := GetFriendsRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_GetFriendsRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := GetFriendsRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	// no validation rules for PageToken
 
 	if len(errors) > 0 {
@@ -1812,8 +1646,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetFriendsRequestValidationError{}
-
-var _GetFriendsRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on GetFriendsResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1975,28 +1807,6 @@ func (m *DeleteFriendRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := DeleteFriendRequestValidationError{
-			field:  "UserId",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_DeleteFriendRequest_UserId_Pattern.MatchString(m.GetUserId()) {
-		err := DeleteFriendRequestValidationError{
-			field:  "UserId",
-			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if utf8.RuneCountInString(m.GetFriendId()) < 1 {
 		err := DeleteFriendRequestValidationError{
 			field:  "FriendId",
@@ -2098,8 +1908,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteFriendRequestValidationError{}
-
-var _DeleteFriendRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 var _DeleteFriendRequest_FriendId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 

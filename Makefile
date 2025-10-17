@@ -35,6 +35,10 @@ VENDOR_PROTO_PATH := $(CURDIR)/vendor.protobuf
 
 generate: export GOBIN := $(LOCAL_BIN)
 generate:
+	@if [ ! -d "vendor/github.com/envoyproxy/protoc-gen-validate" ]; then \
+		echo "Vendoring dependencies..."; \
+		go mod vendor; \
+	fi
 	$(MAKE) generate-go
 	$(MAKE) generate-elixir
 
@@ -53,7 +57,7 @@ generate-go:
 		--go-grpc_out=gen/go --go-grpc_opt=paths=source_relative \
 		--validate_out=lang=go,paths=source_relative:gen/go \
 		--proto_path=proto \
-		--proto_path=vendor \
+		--proto_path=vendor/github.com/envoyproxy/protoc-gen-validate \
 		proto/api/subscriber/v1/*.proto
 	@echo "✓ Generated complete Go code for all services"
 
