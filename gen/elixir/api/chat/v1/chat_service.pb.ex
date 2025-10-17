@@ -7,7 +7,7 @@ defmodule Api.Chat.V1.ChatService.Service do
 
   rpc :GetChat, Api.Chat.V1.GetChatRequest, Api.Chat.V1.GetChatResponse
 
-  rpc :DeleteChat, Api.Chat.V1.DeleteChatRequest, Api.Chat.V1.DeleteChatResponse
+  rpc :DeleteChat, Api.Chat.V1.DeleteChatRequest, Google.Protobuf.Empty
 
   rpc :ListChats, Api.Chat.V1.ListChatsRequest, Api.Chat.V1.ListChatsResponse
 

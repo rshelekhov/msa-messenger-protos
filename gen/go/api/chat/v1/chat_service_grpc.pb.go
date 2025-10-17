@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -37,7 +38,7 @@ type ChatServiceClient interface {
 	// Public method for API gateway to get a chat and its messages
 	GetChat(ctx context.Context, in *GetChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error)
 	// Public method for API gateway to delete a chat and all its messages
-	DeleteChat(ctx context.Context, in *DeleteChatRequest, opts ...grpc.CallOption) (*DeleteChatResponse, error)
+	DeleteChat(ctx context.Context, in *DeleteChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Public method for API gateway to list all chats for the requesting user
 	ListChats(ctx context.Context, in *ListChatsRequest, opts ...grpc.CallOption) (*ListChatsResponse, error)
 	// Public method for API gateway to send a new message to an existing chat
@@ -72,9 +73,9 @@ func (c *chatServiceClient) GetChat(ctx context.Context, in *GetChatRequest, opt
 	return out, nil
 }
 
-func (c *chatServiceClient) DeleteChat(ctx context.Context, in *DeleteChatRequest, opts ...grpc.CallOption) (*DeleteChatResponse, error) {
+func (c *chatServiceClient) DeleteChat(ctx context.Context, in *DeleteChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteChatResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, ChatService_DeleteChat_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -113,7 +114,7 @@ type ChatServiceServer interface {
 	// Public method for API gateway to get a chat and its messages
 	GetChat(context.Context, *GetChatRequest) (*GetChatResponse, error)
 	// Public method for API gateway to delete a chat and all its messages
-	DeleteChat(context.Context, *DeleteChatRequest) (*DeleteChatResponse, error)
+	DeleteChat(context.Context, *DeleteChatRequest) (*emptypb.Empty, error)
 	// Public method for API gateway to list all chats for the requesting user
 	ListChats(context.Context, *ListChatsRequest) (*ListChatsResponse, error)
 	// Public method for API gateway to send a new message to an existing chat
@@ -134,7 +135,7 @@ func (UnimplementedChatServiceServer) CreateChat(context.Context, *CreateChatReq
 func (UnimplementedChatServiceServer) GetChat(context.Context, *GetChatRequest) (*GetChatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetChat not implemented")
 }
-func (UnimplementedChatServiceServer) DeleteChat(context.Context, *DeleteChatRequest) (*DeleteChatResponse, error) {
+func (UnimplementedChatServiceServer) DeleteChat(context.Context, *DeleteChatRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteChat not implemented")
 }
 func (UnimplementedChatServiceServer) ListChats(context.Context, *ListChatsRequest) (*ListChatsResponse, error) {

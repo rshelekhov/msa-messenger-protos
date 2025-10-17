@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.notification.v1;
 
 import "api/notification/v1/notification_messages.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/notification/v1;notification";
 
@@ -13,5 +14,5 @@ service NotificationService {
   rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse) {}
 
   // Private method for Auth service to remove a device registration
-  rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse) {}
+  rpc UnregisterDevice(UnregisterDeviceRequest) returns (google.protobuf.Empty) {}
 }

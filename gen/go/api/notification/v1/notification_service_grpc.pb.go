@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -33,7 +34,7 @@ type NotificationServiceClient interface {
 	// for receiving notifications
 	RegisterDevice(ctx context.Context, in *RegisterDeviceRequest, opts ...grpc.CallOption) (*RegisterDeviceResponse, error)
 	// Private method for Auth service to remove a device registration
-	UnregisterDevice(ctx context.Context, in *UnregisterDeviceRequest, opts ...grpc.CallOption) (*UnregisterDeviceResponse, error)
+	UnregisterDevice(ctx context.Context, in *UnregisterDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type notificationServiceClient struct {
@@ -54,9 +55,9 @@ func (c *notificationServiceClient) RegisterDevice(ctx context.Context, in *Regi
 	return out, nil
 }
 
-func (c *notificationServiceClient) UnregisterDevice(ctx context.Context, in *UnregisterDeviceRequest, opts ...grpc.CallOption) (*UnregisterDeviceResponse, error) {
+func (c *notificationServiceClient) UnregisterDevice(ctx context.Context, in *UnregisterDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UnregisterDeviceResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, NotificationService_UnregisterDevice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -74,7 +75,7 @@ type NotificationServiceServer interface {
 	// for receiving notifications
 	RegisterDevice(context.Context, *RegisterDeviceRequest) (*RegisterDeviceResponse, error)
 	// Private method for Auth service to remove a device registration
-	UnregisterDevice(context.Context, *UnregisterDeviceRequest) (*UnregisterDeviceResponse, error)
+	UnregisterDevice(context.Context, *UnregisterDeviceRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedNotificationServiceServer()
 }
 
@@ -88,7 +89,7 @@ type UnimplementedNotificationServiceServer struct{}
 func (UnimplementedNotificationServiceServer) RegisterDevice(context.Context, *RegisterDeviceRequest) (*RegisterDeviceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterDevice not implemented")
 }
-func (UnimplementedNotificationServiceServer) UnregisterDevice(context.Context, *UnregisterDeviceRequest) (*UnregisterDeviceResponse, error) {
+func (UnimplementedNotificationServiceServer) UnregisterDevice(context.Context, *UnregisterDeviceRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnregisterDevice not implemented")
 }
 func (UnimplementedNotificationServiceServer) mustEmbedUnimplementedNotificationServiceServer() {}

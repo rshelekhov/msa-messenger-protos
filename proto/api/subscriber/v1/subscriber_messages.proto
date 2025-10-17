@@ -34,12 +34,6 @@ message AcceptFriendInviteRequest {
   ];
 }
 
-// AcceptFriendInviteResponse indicates if the invite was successfully accepted
-message AcceptFriendInviteResponse {
-  // Whether the invite was accepted successfully
-  bool success = 1;
-}
-
 // DeclineFriendInviteRequest is used to decline a pending friend invite
 message DeclineFriendInviteRequest {
   // ID of the invite to decline
@@ -51,12 +45,6 @@ message DeclineFriendInviteRequest {
   optional string message = 2 [
     (validate.rules).string = {min_len: 1, max_len: 300}
   ];
-}
-
-// DeclineFriendInviteResponse indicates if the invite was successfully declined
-message DeclineFriendInviteResponse {
-  // Whether the invite was declined successfully
-  bool success = 1;
 }
 
 // GetFriendInviteRequest is used to retrieve a specific friend invite
@@ -133,10 +121,4 @@ message DeleteFriendRequest {
   string friend_id = 1 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
-}
-
-// DeleteFriendResponse indicates if the friend was successfully removed
-message DeleteFriendResponse {
-  // Whether the friend was removed successfully
-  bool success = 1;
 }

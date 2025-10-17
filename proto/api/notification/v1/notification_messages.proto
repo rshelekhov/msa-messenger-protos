@@ -29,9 +29,3 @@ message UnregisterDeviceRequest {
   // User ID for verification
   string user_id = 2;
 }
-
-// Response for unregistering a device
-message UnregisterDeviceResponse {
-  // Whether unregistration was successful
-  bool success = 1;
-}
