@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.subscriber.v1;
 
 import "api/subscriber/v1/subscriber_messages.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/subscriber/v1;subscriber";
 
@@ -12,10 +13,10 @@ service SubscriberService {
   rpc SendFriendInvite(SendFriendInviteRequest) returns (SendFriendInviteResponse) {}
 
   // Public method for API gateway to accept a friend invite
-  rpc AcceptFriendInvite(AcceptFriendInviteRequest) returns (AcceptFriendInviteResponse) {}
+  rpc AcceptFriendInvite(AcceptFriendInviteRequest) returns (google.protobuf.Empty) {}
 
   // Public method for API gateway to decline a friend invite
-  rpc DeclineFriendInvite(DeclineFriendInviteRequest) returns (DeclineFriendInviteResponse) {}
+  rpc DeclineFriendInvite(DeclineFriendInviteRequest) returns (google.protobuf.Empty) {}
 
   // Public method for API gateway to retrieve details of a specific friend request
   rpc GetFriendInvite(GetFriendInviteRequest) returns (GetFriendInviteResponse) {}
@@ -30,5 +31,5 @@ service SubscriberService {
   rpc GetFriends(GetFriendsRequest) returns (GetFriendsResponse) {}
 
   // Public method for API gateway to delete a friendship connection between two users
-  rpc DeleteFriend(DeleteFriendRequest) returns (DeleteFriendResponse) {}
+  rpc DeleteFriend(DeleteFriendRequest) returns (google.protobuf.Empty) {}
 }

@@ -23,11 +23,3 @@ defmodule Api.Notification.V1.UnregisterDeviceRequest do
   field :registration_id, 1, type: :string, json_name: "registrationId"
   field :user_id, 2, type: :string, json_name: "userId"
 end
-
-defmodule Api.Notification.V1.UnregisterDeviceResponse do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
-
-  field :success, 1, type: :bool
-end

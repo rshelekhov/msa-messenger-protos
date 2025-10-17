@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -38,9 +39,9 @@ type SubscriberServiceClient interface {
 	// Public method for API gateway to send a friend invite
 	SendFriendInvite(ctx context.Context, in *SendFriendInviteRequest, opts ...grpc.CallOption) (*SendFriendInviteResponse, error)
 	// Public method for API gateway to accept a friend invite
-	AcceptFriendInvite(ctx context.Context, in *AcceptFriendInviteRequest, opts ...grpc.CallOption) (*AcceptFriendInviteResponse, error)
+	AcceptFriendInvite(ctx context.Context, in *AcceptFriendInviteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Public method for API gateway to decline a friend invite
-	DeclineFriendInvite(ctx context.Context, in *DeclineFriendInviteRequest, opts ...grpc.CallOption) (*DeclineFriendInviteResponse, error)
+	DeclineFriendInvite(ctx context.Context, in *DeclineFriendInviteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Public method for API gateway to retrieve details of a specific friend request
 	GetFriendInvite(ctx context.Context, in *GetFriendInviteRequest, opts ...grpc.CallOption) (*GetFriendInviteResponse, error)
 	// Public method for API gateway to list all friend requests for a user (sent or received)
@@ -50,7 +51,7 @@ type SubscriberServiceClient interface {
 	// Public method for API gateway to list all friends for a user
 	GetFriends(ctx context.Context, in *GetFriendsRequest, opts ...grpc.CallOption) (*GetFriendsResponse, error)
 	// Public method for API gateway to delete a friendship connection between two users
-	DeleteFriend(ctx context.Context, in *DeleteFriendRequest, opts ...grpc.CallOption) (*DeleteFriendResponse, error)
+	DeleteFriend(ctx context.Context, in *DeleteFriendRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type subscriberServiceClient struct {
@@ -71,9 +72,9 @@ func (c *subscriberServiceClient) SendFriendInvite(ctx context.Context, in *Send
 	return out, nil
 }
 
-func (c *subscriberServiceClient) AcceptFriendInvite(ctx context.Context, in *AcceptFriendInviteRequest, opts ...grpc.CallOption) (*AcceptFriendInviteResponse, error) {
+func (c *subscriberServiceClient) AcceptFriendInvite(ctx context.Context, in *AcceptFriendInviteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AcceptFriendInviteResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, SubscriberService_AcceptFriendInvite_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -81,9 +82,9 @@ func (c *subscriberServiceClient) AcceptFriendInvite(ctx context.Context, in *Ac
 	return out, nil
 }
 
-func (c *subscriberServiceClient) DeclineFriendInvite(ctx context.Context, in *DeclineFriendInviteRequest, opts ...grpc.CallOption) (*DeclineFriendInviteResponse, error) {
+func (c *subscriberServiceClient) DeclineFriendInvite(ctx context.Context, in *DeclineFriendInviteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeclineFriendInviteResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, SubscriberService_DeclineFriendInvite_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -131,9 +132,9 @@ func (c *subscriberServiceClient) GetFriends(ctx context.Context, in *GetFriends
 	return out, nil
 }
 
-func (c *subscriberServiceClient) DeleteFriend(ctx context.Context, in *DeleteFriendRequest, opts ...grpc.CallOption) (*DeleteFriendResponse, error) {
+func (c *subscriberServiceClient) DeleteFriend(ctx context.Context, in *DeleteFriendRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteFriendResponse)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, SubscriberService_DeleteFriend_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -150,9 +151,9 @@ type SubscriberServiceServer interface {
 	// Public method for API gateway to send a friend invite
 	SendFriendInvite(context.Context, *SendFriendInviteRequest) (*SendFriendInviteResponse, error)
 	// Public method for API gateway to accept a friend invite
-	AcceptFriendInvite(context.Context, *AcceptFriendInviteRequest) (*AcceptFriendInviteResponse, error)
+	AcceptFriendInvite(context.Context, *AcceptFriendInviteRequest) (*emptypb.Empty, error)
 	// Public method for API gateway to decline a friend invite
-	DeclineFriendInvite(context.Context, *DeclineFriendInviteRequest) (*DeclineFriendInviteResponse, error)
+	DeclineFriendInvite(context.Context, *DeclineFriendInviteRequest) (*emptypb.Empty, error)
 	// Public method for API gateway to retrieve details of a specific friend request
 	GetFriendInvite(context.Context, *GetFriendInviteRequest) (*GetFriendInviteResponse, error)
 	// Public method for API gateway to list all friend requests for a user (sent or received)
@@ -162,7 +163,7 @@ type SubscriberServiceServer interface {
 	// Public method for API gateway to list all friends for a user
 	GetFriends(context.Context, *GetFriendsRequest) (*GetFriendsResponse, error)
 	// Public method for API gateway to delete a friendship connection between two users
-	DeleteFriend(context.Context, *DeleteFriendRequest) (*DeleteFriendResponse, error)
+	DeleteFriend(context.Context, *DeleteFriendRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedSubscriberServiceServer()
 }
 
@@ -176,10 +177,10 @@ type UnimplementedSubscriberServiceServer struct{}
 func (UnimplementedSubscriberServiceServer) SendFriendInvite(context.Context, *SendFriendInviteRequest) (*SendFriendInviteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendFriendInvite not implemented")
 }
-func (UnimplementedSubscriberServiceServer) AcceptFriendInvite(context.Context, *AcceptFriendInviteRequest) (*AcceptFriendInviteResponse, error) {
+func (UnimplementedSubscriberServiceServer) AcceptFriendInvite(context.Context, *AcceptFriendInviteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AcceptFriendInvite not implemented")
 }
-func (UnimplementedSubscriberServiceServer) DeclineFriendInvite(context.Context, *DeclineFriendInviteRequest) (*DeclineFriendInviteResponse, error) {
+func (UnimplementedSubscriberServiceServer) DeclineFriendInvite(context.Context, *DeclineFriendInviteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeclineFriendInvite not implemented")
 }
 func (UnimplementedSubscriberServiceServer) GetFriendInvite(context.Context, *GetFriendInviteRequest) (*GetFriendInviteResponse, error) {
@@ -194,7 +195,7 @@ func (UnimplementedSubscriberServiceServer) GetFriendProfile(context.Context, *G
 func (UnimplementedSubscriberServiceServer) GetFriends(context.Context, *GetFriendsRequest) (*GetFriendsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFriends not implemented")
 }
-func (UnimplementedSubscriberServiceServer) DeleteFriend(context.Context, *DeleteFriendRequest) (*DeleteFriendResponse, error) {
+func (UnimplementedSubscriberServiceServer) DeleteFriend(context.Context, *DeleteFriendRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFriend not implemented")
 }
 func (UnimplementedSubscriberServiceServer) mustEmbedUnimplementedSubscriberServiceServer() {}

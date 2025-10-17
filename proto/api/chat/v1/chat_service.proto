@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.chat.v1;
 
 import "api/chat/v1/chat_messages.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/rshelekhov/msa-messenger-protos/api/chat/v1;chat";
 
@@ -15,7 +16,7 @@ service ChatService {
   rpc GetChat(GetChatRequest) returns (GetChatResponse) {}
 
   // Public method for API gateway to delete a chat and all its messages
-  rpc DeleteChat(DeleteChatRequest) returns (DeleteChatResponse) {}
+  rpc DeleteChat(DeleteChatRequest) returns (google.protobuf.Empty) {}
 
   // Public method for API gateway to list all chats for the requesting user
   rpc ListChats(ListChatsRequest) returns (ListChatsResponse) {}

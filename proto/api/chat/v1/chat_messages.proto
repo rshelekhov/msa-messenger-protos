@@ -54,12 +54,6 @@ message DeleteChatRequest {
   string user_id = 2;
 }
 
-// Response for deleting a chat
-message DeleteChatResponse {
-  // Whether deletion was successful
-  bool success = 1;
-}
-
 // List all chats for a user
 message ListChatsRequest {
   // ID of user whose chats to list

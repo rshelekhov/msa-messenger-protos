@@ -9,9 +9,7 @@ defmodule Api.Notification.V1.NotificationService.Service do
       Api.Notification.V1.RegisterDeviceRequest,
       Api.Notification.V1.RegisterDeviceResponse
 
-  rpc :UnregisterDevice,
-      Api.Notification.V1.UnregisterDeviceRequest,
-      Api.Notification.V1.UnregisterDeviceResponse
+  rpc :UnregisterDevice, Api.Notification.V1.UnregisterDeviceRequest, Google.Protobuf.Empty
 end
 
 defmodule Api.Notification.V1.NotificationService.Stub do

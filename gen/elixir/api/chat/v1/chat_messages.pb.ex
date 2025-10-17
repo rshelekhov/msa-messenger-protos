@@ -44,14 +44,6 @@ defmodule Api.Chat.V1.DeleteChatRequest do
   field :user_id, 2, type: :string, json_name: "userId"
 end
 
-defmodule Api.Chat.V1.DeleteChatResponse do
-  @moduledoc false
-
-  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
-
-  field :success, 1, type: :bool
-end
-
 defmodule Api.Chat.V1.ListChatsRequest do
   @moduledoc false
 
