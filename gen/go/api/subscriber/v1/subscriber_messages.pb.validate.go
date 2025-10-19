@@ -302,9 +302,9 @@ func (m *AcceptFriendInviteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetUserId()) < 1 {
+	if utf8.RuneCountInString(m.GetInviteId()) < 1 {
 		err := AcceptFriendInviteRequestValidationError{
-			field:  "UserId",
+			field:  "InviteId",
 			reason: "value length must be at least 1 runes",
 		}
 		if !all {
@@ -313,9 +313,9 @@ func (m *AcceptFriendInviteRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_AcceptFriendInviteRequest_UserId_Pattern.MatchString(m.GetUserId()) {
+	if !_AcceptFriendInviteRequest_InviteId_Pattern.MatchString(m.GetInviteId()) {
 		err := AcceptFriendInviteRequestValidationError{
-			field:  "UserId",
+			field:  "InviteId",
 			reason: "value does not match regex pattern \"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$\"",
 		}
 		if !all {
@@ -404,7 +404,7 @@ var _ interface {
 	ErrorName() string
 } = AcceptFriendInviteRequestValidationError{}
 
-var _AcceptFriendInviteRequest_UserId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+var _AcceptFriendInviteRequest_InviteId_Pattern = regexp.MustCompile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 // Validate checks the field values on DeclineFriendInviteRequest with the
 // rules defined in the proto definition for this message. If any rules are
