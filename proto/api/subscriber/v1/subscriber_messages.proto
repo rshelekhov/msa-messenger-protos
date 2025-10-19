@@ -28,8 +28,8 @@ message SendFriendInviteResponse {
 
 // AcceptFriendInviteRequest is used to accept a pending friend invite
 message AcceptFriendInviteRequest {
-  // ID of the user accepting the invite (must be the recipient)
-  string user_id = 1 [
+  // ID of the invite to accept
+  string invite_id = 1 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 }
