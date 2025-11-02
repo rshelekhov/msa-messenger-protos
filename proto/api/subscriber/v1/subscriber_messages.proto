@@ -9,13 +9,18 @@ option go_package = "github.com/rshelekhov/msa-messenger-protos/api/subscriber/v
 
 // SendFriendInviteRequest is used to send a friend invite to a target user
 message SendFriendInviteRequest {
+  // ID of the user sending the invite
+  string from_user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // ID of the user receiving the invite
-  string to_user_id = 1 [
+  string to_user_id = 2 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 
   // Optional message to accompany the invite
-  optional string message = 2 [
+  optional string message = 3 [
     (validate.rules).string = {min_len: 1, max_len: 300}
   ];
 }
@@ -28,21 +33,31 @@ message SendFriendInviteResponse {
 
 // AcceptFriendInviteRequest is used to accept a pending friend invite
 message AcceptFriendInviteRequest {
+  // ID of the user accepting the invite (should match the invite's to_user_id)
+  string user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // ID of the invite to accept
-  string invite_id = 1 [
+  string invite_id = 2 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 }
 
 // DeclineFriendInviteRequest is used to decline a pending friend invite
 message DeclineFriendInviteRequest {
+// ID of the user declining the invite (should match the invite's to_user_id)
+  string user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // ID of the invite to decline
-  string invite_id = 1 [
+  string invite_id = 2 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 
   // Optional explanation for declining
-  optional string message = 2 [
+  optional string message = 3 [
     (validate.rules).string = {min_len: 1, max_len: 300}
   ];
 }
@@ -63,18 +78,23 @@ message GetFriendInviteResponse {
 
 // GetAllFriendInvitesRequest is used to list all friend invites for a user
 message GetAllFriendInvitesRequest {
+  // ID of the user sending the invite
+  string from_user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // Whether to get incoming or outgoing invites (optional)
-  optional RequestDirection direction = 1 [
+  optional RequestDirection direction = 2 [
     (validate.rules).enum = {defined_only: true}
   ];
 
   // Filter by invite status (optional)
-  optional RequestStatus status = 2 [
+  optional RequestStatus status = 3 [
     (validate.rules).enum = {defined_only: true}
   ];
 
   // Token for pagination continuation
-  string page_token = 3;
+  string page_token = 4;
 }
 
 // GetAllFriendInvitesResponse contains a list of friend invites
@@ -88,8 +108,13 @@ message GetAllFriendInvitesResponse {
 
 // GetFriendProfileRequest is used to retrieve a friend's profile
 message GetFriendProfileRequest {
+  // ID of the user requesting the friend's profile (should match either from_user_id or to_user_id in the friendship)
+  string user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // ID of the friend whose profile to retrieve
-  string friend_id = 1 [
+  string friend_id = 2 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 }
@@ -102,8 +127,13 @@ message GetFriendProfileResponse {
 
 // GetFriendsRequest is used to retrieve a user's friends list
 message GetFriendsRequest {
+  // ID of the user whose friends are being requested
+  string user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // Token for pagination continuation
-  string page_token = 1;
+  string page_token = 2;
 }
 
 // GetFriendsResponse contains a list of the user's friends
@@ -117,8 +147,13 @@ message GetFriendsResponse {
 
 // DeleteFriendRequest is used to remove a user from friends list
 message DeleteFriendRequest {
+  // ID of the user requesting the deletion
+  string user_id = 1 [
+    (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
+  ];
+
   // ID of the friend to remove
-  string friend_id = 1 [
+  string friend_id = 2 [
     (validate.rules).string = {min_len: 1, pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"}
   ];
 }
